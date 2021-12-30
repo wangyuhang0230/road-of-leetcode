@@ -13,4 +13,6 @@ public class TestProblems0001_0010 {
         System.out.println(Arrays.toString(problems.twoSum2(new int[]{2, 7, 11, 15}, 9)));
     }
 
+    @Test
+    public void testProblem0003(){System.out.println(problems.lengthOfLongestSubstring("a"));}
 }
