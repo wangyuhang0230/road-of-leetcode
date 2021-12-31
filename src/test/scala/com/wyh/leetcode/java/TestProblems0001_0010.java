@@ -14,5 +14,5 @@ public class TestProblems0001_0010 {
     }
 
     @Test
-    public void testProblem0003(){System.out.println(problems.lengthOfLongestSubstring("a"));}
+    public void testProblem0003(){System.out.println(problems.lengthOfLongestSubstring3("abcabcbb"));}
 }

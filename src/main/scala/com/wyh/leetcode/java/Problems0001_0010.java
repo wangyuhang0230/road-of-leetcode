@@ -1,6 +1,7 @@
 package com.wyh.leetcode.java;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 class Problems0001_0010 {
@@ -84,6 +85,42 @@ class Problems0001_0010 {
             }
         }
         return length;
+    }
+
+    /**
+     * 3. 无重复字符的最长子串 abcabcbb
+     */
+    public int lengthOfLongestSubstring2(String s) {
+        HashSet<Character> hashSet = new HashSet<>();
+        int n = s.length(), result = 0;
+        for (int start = 0, end = 0; start < n; ++start){
+            while (end < n && !hashSet.contains(s.charAt(end))){
+                hashSet.add(s.charAt(end));
+                ++end;
+            }
+            result = Math.max(result, end - start);
+            hashSet.remove(s.charAt(start));
+        }
+        return result;
+    }
+
+    /**
+     * 3. 无重复字符的最长子串 abcabcbb
+     */
+    public int lengthOfLongestSubstring3(String s) {
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+        int n = s.length(), result = 0;
+
+        for(int start = 0, end = 0; end < n; ++end){
+            char alpha = s.charAt(end);
+            if (hashMap.containsKey(alpha)){
+                start = Math.max(start, hashMap.get(alpha) + 1);
+            }
+            result = Math.max(result, end - start + 1);
+            hashMap.put(alpha, end);
+        }
+
+        return result;
     }
 
 }
