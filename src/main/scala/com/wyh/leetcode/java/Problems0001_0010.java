@@ -1,5 +1,6 @@
 package com.wyh.leetcode.java;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -121,6 +122,88 @@ class Problems0001_0010 {
         }
 
         return result;
+    }
+
+    /**
+     * 4. 寻找两个正序数组的中位数
+     */
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int m = nums1.length;
+        int n = nums2.length;
+        int[] nums = new int[m + n];
+
+        if (m == 0) {
+            if (n % 2 == 0) {
+                return (nums2[n/2 - 1] + nums2[n/2]) / 2.0;
+            } else {
+                return nums2[n/2];
+            }
+        }
+
+        if (n == 0) {
+            if (m % 2 == 0){
+                return (nums1[m/2 - 1] + nums1[m/2]) / 2.0;
+            } else {
+                return nums1[m/2];
+            }
+        }
+
+        for (int i = 0, j = 0; i + j < m + n;) {
+            if (i == m) {
+                while (j != n){
+                    nums[i+j] = nums2[j++];
+                }
+                break;
+            }
+            if (j == n) {
+                while (i != m){
+                    nums[i+j] = nums1[i++];
+                }
+                break;
+            }
+            if (nums1[i] < nums2[j]) {
+                nums[i+j] = nums1[i++];
+            } else {
+                nums[i+j] = nums2[j++];
+            }
+        }
+
+        if (nums.length % 2 == 0) {
+            return (nums[nums.length/2 - 1] + nums[nums.length/2]) / 2.0;
+        } else {
+            return nums[nums.length/2];
+        }
+    }
+
+    /**
+     * 4. 寻找两个正序数组的中位数
+     */
+    public double findMedianSortedArrays2(int[] nums1, int[] nums2) {
+
+        int left = 0, right = 0;
+
+        int m = nums1.length;
+        int n = nums2.length;
+
+        int size = m + n;
+
+        int i = 0, j = 0;
+
+        do {
+            left = right;
+            if (i < m && (j >= n || nums1[i] < nums2[j])) {
+                right = nums1[i++];
+            } else {
+                right = nums2[j++];
+            }
+        } while (i + j != size / 2);
+
+        if ((size & 1) == 0){
+            return (left + right) / 2.0;
+        } else {
+            return right;
+        }
+
     }
 
 }
